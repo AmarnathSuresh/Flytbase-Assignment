@@ -31,8 +31,10 @@ class TurtlePatterns:
         self.velocity_publisher.publish(twist_msg)
 
     def circle_pattern(self):
-        
+        linear_velocity = self.max_linear_speed
+
         circle_time = 2 * math.pi / self.angular_velocity
+
         start_time = rospy.Time.now().to_sec()
 
         while (rospy.Time.now().to_sec() - start_time) < circle_time:
@@ -54,9 +56,6 @@ class TurtlePatterns:
         return noisy_pose
 
     def run(self):
-
-
-        
 
         while not rospy.is_shutdown():
             self.circle_pattern()
