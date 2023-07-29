@@ -1,15 +1,24 @@
 Report (Flytbase Assignment)
 
 Goal 1:
-TurtleBotController Class: It stores information about the goal position, current position, orientation, PID gains, and previous error. It also subscribes to the '/turtle1/pose' topic to receive the turtle's position and orientation and publishes control commands to the '/turtle1/cmd_vel' topic to control the robot's movement.
+TurtleBotController Class: It stores information about the goal position, current position, orientation, PID gains, and previous error. 
+It also subscribes to the '/turtle1/pose' topic to receive the turtle's position and orientation and publishes control commands to 
+the '/turtle1/cmd_vel' topic to control the robot's movement.
 
-PID Control Algorithm: It calculates the distance and orientation error between the turtle's current position and the goal position. Using the PID gains (Kp, Ki, and Kd), it calculates the linear and angular velocities required to move the turtle towards the goal while minimizing errors.
+PID Control Algorithm: It calculates the distance and orientation error between the turtle's current position and the goal position. 
+Using the PID gains (Kp, Ki, and Kd), it calculates the linear and angular velocities required to move the turtle towards the goal 
+while minimizing errors.
 
-Control Loop and Data Collection: For each set of PID gains in the gains_list, a TurtleBotController instance is created. The control loop runs until the turtle robot reaches its goal position. During each iteration of the loop, the current linear and angular velocities, as well as the time, are recorded for later plotting.
+Control Loop and Data Collection: For each set of PID gains in the gains_list, a TurtleBotController instance is created. 
+The control loop runs until the turtle robot reaches its goal position. During each iteration of the loop, the current linear 
+and angular velocities, as well as the time, are recorded for later plotting.
 
-Plotting Performance: After running the control loop for all PID gain sets, the script calls the plot_performance() function to visualize the performance of each configuration. The function plots two graphs: one showing the position error over time and the other showing the linear and angular velocities over time for each PID gain set.
+Plotting Performance: After running the control loop for all PID gain sets, the script calls the plot_performance() function to visualize 
+the performance of each configuration. The function plots two graphs: one showing the position error over time and the other showing the 
+linear and angular velocities over time for each PID gain set.
 
-The main objective of this approach is to experiment with different sets of PID gains and observe how each configuration affects the turtle robot's movement towards the goal plotting the position error and velocities.
+The main objective of this approach is to experiment with different sets of PID gains and observe how each configuration affects the turtle 
+robot's movement towards the goal plotting the position error and velocities.
 
 
 Goal 2:
@@ -19,7 +28,8 @@ Utility Functions:
 •	Convert degrees to radians
 •	Calculate the distance between two points.
 
-Implement move_goal(): To move the turtle towards a specified goal pose by adjusting its linear and angular velocities based on the current and goal poses.
+Implement move_goal(): To move the turtle towards a specified goal pose by adjusting its linear and angular velocities based on the current 
+and goal poses.
 
 Grid cleaning:
 Create a grid cleaning sequence in the grid_clean() function, where the turtle follows a specific pattern to clean the grid:
@@ -30,12 +40,15 @@ Create a grid cleaning sequence in the grid_clean() function, where the turtle f
 •	Rotate 90 degrees clockwise again.
 •	Repeat the above step twice.
 
-Overall, this program controls the turtle to follow a specific grid pattern for cleaning the turtlesim environment by adjusting its linear and angular velocities based on predefined movements.
+Overall, this program controls the turtle to follow a specific grid pattern for cleaning the turtlesim environment by adjusting its linear 
+and angular velocities based on predefined movements.
 
 Do you need to change gains every time? If yes/no, why?
 It depends on the condition:
-If the velocity-based trajectory planner is robust and capable of generating appropriate velocity commands with respect to acceleration and deceleration profiles, we may not need to change PID gains frequently.
-If the control system's dynamics vary significantly due to different acceleration and deceleration profiles, we may need to adjust the PID gains to achieve optimal performance.
+If the velocity-based trajectory planner is robust and capable of generating appropriate velocity commands with respect to acceleration 
+and deceleration profiles, we may not need to change PID gains frequently.
+If the control system's dynamics vary significantly due to different acceleration and deceleration profiles, we may need to adjust the PID gains 
+to achieve optimal performance.
 
 
 Goal 3:
@@ -45,54 +58,75 @@ Implemented functions:
 •	circle_pattern: It makes the turtle move in a circle for a specific duration, calculated based on the desired angular velocity.
 •	add_noise: It generates a noisy pose by adding random Gaussian noise to the turtle's current pose.
 
-Within the loop, it executes the circular movement pattern, publishes the real pose (/rt_real_pose), and the noisy pose (/rt_noisy_pose) at a rate of 10 Hz every 5 seconds.
+Within the loop, it executes the circular movement pattern, publishes the real pose (/rt_real_pose), and the noisy pose (/rt_noisy_pose) 
+at a rate of 10 Hz every 5 seconds.
 
-Overall, this program controls a turtle to follow a circular path in the turtlesim environment. It publishes both the real and noisy poses of the turtle on separate topics to simulate sensor noise.
+Overall, this program controls a turtle to follow a circular path in the turtlesim environment. It publishes both the real and noisy poses of the turtle 
+on separate topics to simulate sensor noise.
 
 
 Goal 4: 
-Controlling the Robber Turtle: The function move_turtle_in_circle controls the robber turtle. It calculates and publishes velocity commands for the robber turtle to move in a circular trajectory. The linear and angular velocities are set based on the predefined robber_speed and circle_radius constants.
+Controlling the Robber Turtle: The function move_turtle_in_circle controls the robber turtle. It calculates and publishes velocity commands for the robber turtle 
+to move in a circular trajectory. The linear and angular velocities are set based on the predefined robber_speed and circle_radius constants.
 
-Controlling the Police Turtle: The function move_police_turtle controls the police turtle. It calculates and publishes velocity commands for the police turtle to chase the robber turtle. The function calculates the distance between the police turtle and the robber turtle and sets the linear velocity based on that distance. 
-The angular velocity is set to align the police turtle with the direction towards the robber turtle and the police turtle is set to move at a higher speed than the robber turtle.
+Controlling the Police Turtle: The function move_police_turtle controls the police turtle. It calculates and publishes velocity commands for the police turtle 
+to chase the robber turtle. The function calculates the distance between the police turtle and the robber turtle and sets the linear velocity based on that distance. 
+The angular velocity is set to align the police turtle with the direction towards the robber turtle and the police turtle is set to move at a higher speed 
+than the robber turtle.
 
-Spawning the Police Turtle: A service proxy is used to call the ‘/spawn’ service, which spawns the police turtle in a random location within the turtlesim environment.
-The robber turtle is moved in a circular trajectory using the move_turtle_in_circle function. After a 10 second delay, the police turtle starts chasing the robber turtle using the move_police_turtle function.
+Spawning the Police Turtle: A service proxy is used to call the ‘/spawn’ service, which spawns the police turtle in a random location within the turtlesim 
+environment.
+The robber turtle is moved in a circular trajectory using the move_turtle_in_circle function. After a 10 second delay, the police turtle starts chasing the robber turtle 
+using the move_police_turtle function.
 
-Completing the Chase: If the distance between the police and robber turtles becomes less than or equal to 3 units, the chase is considered complete, and a message is displayed showing the chase is complete.
+Completing the Chase: If the distance between the police and robber turtles becomes less than or equal to 3 units, the chase is considered complete, and a message 
+is displayed showing the chase is complete.
 
-Overall, in this program, the robber turtle moves in a circular path, and the police turtle chases the robber turtle after 10 seconds the robber turtle starts moving until it catches up to its radius which is 3 units.
+Overall, in this program, the robber turtle moves in a circular path, and the police turtle chases the robber turtle after 10 seconds the robber turtle starts moving 
+until it catches up to its radius which is 3 units.
 
 
 Goal 5:
-Controlling the Robber Turtle: The function move_turtle_in_circle controls the robber turtle. It calculates and publishes velocity commands for the robber turtle to move in a circular trajectory. The linear and angular velocities are set based on the predefined robber_speed and circle_radius constants.
+Controlling the Robber Turtle: The function move_turtle_in_circle controls the robber turtle. It calculates and publishes velocity commands for the robber turtle 
+to move in a circular trajectory. The linear and angular velocities are set based on the predefined robber_speed and circle_radius constants.
 
-Controlling the Police Turtle: The function move_police_turtle controls the police turtle. It calculates and publishes velocity commands for the police turtle to chase the robber turtle. The function calculates the distance between the police turtle and the robber turtle and sets the linear velocity based on that distance. 
-The angular velocity is set to align the police turtle with the direction towards the robber turtle and the police turtle is set to move at half the speed of the robber turtle.
+Controlling the Police Turtle: The function move_police_turtle controls the police turtle. It calculates and publishes velocity commands for the police turtle 
+to chase the robber turtle. The function calculates the distance between the police turtle and the robber turtle and sets the linear velocity based on that distance. 
+The angular velocity is set to align the police turtle with the direction towards the robber turtle and the police turtle is set to move at half the speed 
+of the robber turtle.
 
 Spawning the Police Turtle: A service proxy is used to call the ‘/spawn’ service, which spawns the police turtle in a random location within the turtlesim environment.
-The robber turtle is moved in a circular trajectory using the move_turtle_in_circle function. After a 10 second delay, the police turtle starts chasing the robber turtle using the move_police_turtle function.
+The robber turtle is moved in a circular trajectory using the move_turtle_in_circle function. After a 10 second delay, the police turtle starts chasing the robber turtle 
+using the move_police_turtle function.
 
-Completing the Chase: If the distance between the police and robber turtles becomes less than or equal to 3 units, the chase is considered complete, and a message is displayed showing the chase is complete.
+Completing the Chase: If the distance between the police and robber turtles becomes less than or equal to 3 units, the chase is considered complete, and a message is displayed 
+showing the chase is complete.
 
-Overall, in this program, the robber turtle moves in a circular path, and the police turtle chases the robber turtle after 10 seconds the robber turtle starts moving until it catches up to its radius which is 3 units. 
+Overall, in this program, the robber turtle moves in a circular path, and the police turtle chases the robber turtle after 10 seconds the robber turtle starts moving 
+until it catches up to its radius which is 3 units. 
 
 The only difference between this goal and the previous goal is that, in this goal the police turtle can move at only half the speed of the robber turtle.
 
 
 Goal 6:
-Controlling the Robber Turtle: The function move_turtle_in_circle controls the robber turtle. It calculates and publishes velocity commands for the robber turtle to move in a circular trajectory. The linear and angular velocities are set based on the predefined robber_speed and circle_radius constants.
+Controlling the Robber Turtle: The function move_turtle_in_circle controls the robber turtle. It calculates and publishes velocity commands for the robber turtle to move 
+in a circular trajectory. The linear and angular velocities are set based on the predefined robber_speed and circle_radius constants.
 
-Controlling the Police Turtle: The function move_police_turtle controls the police turtle. It calculates and publishes velocity commands for the police turtle to chase the robber turtle. The function calculates the distance between the police turtle and the robber turtle and sets the linear velocity based on that distance. 
-The angular velocity is set to align the police turtle with the direction towards the robber turtle and the police turtle is set to move at half the speed of the robber turtle.
+Controlling the Police Turtle: The function move_police_turtle controls the police turtle. It calculates and publishes velocity commands for the police turtle 
+to chase the robber turtle. The function calculates the distance between the police turtle and the robber turtle and sets the linear velocity based on that distance. 
+The angular velocity is set to align the police turtle with the direction towards the robber turtle and the police turtle is set to move at half the speed 
+of the robber turtle.
 
 Spawning the Police Turtle: A service proxy is used to call the ‘/spawn’ service, which spawns the police turtle in a random location within the turtlesim environment.
 The police turtle can access robber turtle’s noisy pose every 5 secs through the published topic ‘rt_noisy_pose’.
-The robber turtle is moved in a circular trajectory using the move_turtle_in_circle function. After a 10 second delay, the police turtle starts chasing the robber turtle using the move_police_turtle function.
+The robber turtle is moved in a circular trajectory using the move_turtle_in_circle function. After a 10 second delay, the police turtle starts chasing the robber turtle 
+using the move_police_turtle function.
 
-Completing the Chase: If the distance between the police and robber turtles becomes less than or equal to 3 units, the chase is considered complete, and a message is displayed showing the chase is complete.
+Completing the Chase: If the distance between the police and robber turtles becomes less than or equal to 3 units, the chase is considered complete, and a message is displayed 
+showing the chase is complete.
 
-Overall, in this program, the robber turtle moves in a circular path, and the police turtle chases the robber turtle after 10 seconds the robber turtle starts moving until it catches up to its radius which is 3 units. 
+Overall, in this program, the robber turtle moves in a circular path, and the police turtle chases the robber turtle after 10 seconds the robber turtle starts moving 
+until it catches up to its radius which is 3 units. 
 
 The only difference between this goal and the previous goal is that, in this goal the police turtle can access the noisy pose every 5 seconds whereas in the previous goal, the police turtle was able to access the real pose every 5 seconds.
 
