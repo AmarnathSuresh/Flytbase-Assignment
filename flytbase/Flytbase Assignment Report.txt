@@ -128,5 +128,6 @@ showing the chase is complete.
 Overall, in this program, the robber turtle moves in a circular path, and the police turtle chases the robber turtle after 10 seconds the robber turtle starts moving 
 until it catches up to its radius which is 3 units. 
 
-The only difference between this goal and the previous goal is that, in this goal the police turtle can access the noisy pose every 5 seconds whereas in the previous goal, the police turtle was able to access the real pose every 5 seconds.
+The only difference between this goal and the previous goal is that, in this goal the police turtle can access the noisy pose every 5 seconds whereas in the previous goal, 
+the police turtle was able to access the real pose every 5 seconds.
 
