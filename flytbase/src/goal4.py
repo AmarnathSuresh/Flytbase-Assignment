@@ -8,7 +8,7 @@ import random
 import math
 
 robber_speed = 1.0
-circle_radius = 3.0
+circle_radius = 30.0
 noise_std_dev = 10.0
 police_speed = 1.5
 police_accel_limit = 0.1
