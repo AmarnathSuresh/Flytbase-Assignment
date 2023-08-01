@@ -8,7 +8,7 @@ import random
 import math
 
 circle_speed = 1.0
-circle_radius = 3.0
+circle_radius = 30.0
 police_speed_ratio = 0.5
 police_speed = circle_speed * police_speed_ratio
 
